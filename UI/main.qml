@@ -8,16 +8,14 @@ ApplicationWindow {
     id: mainWindow
     width: 512
     height: 640
+    visible: true
+    title: "1 - GGuides"
     flags: Qt.Window | Qt.FramelessWindowHint
-    title: " - GGuides"
     color: "transparent"
 
     signal addTask(string task)
 
-    onAddTask: {
-        view.appendTask(task)
-        console.log(1, task)
-    }
+
 
     background: Rectangle {
 
@@ -126,8 +124,6 @@ ApplicationWindow {
                 delegate: Delegate {}
 
             }
-
-
 
             PopUp {
                 id: popup

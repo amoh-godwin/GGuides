@@ -9,6 +9,9 @@
 *.dll
 *.dylib
 
+# Py
+/__pycache__
+
 # Qt-es
 object_script.*.Release
 object_script.*.Debug
