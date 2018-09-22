@@ -13,7 +13,23 @@ ApplicationWindow {
     flags: Qt.Window | Qt.FramelessWindowHint
     color: "transparent"
 
-    signal addTask(string task)
+    Component.onCompleted: manager.start()
+
+    Component.onDestruction: {
+        var cc = view.model.count
+        var items = []
+        for (var i = 0; i < cc; i++) {
+            items.push(view.model.get(i))
+        }
+        console.log(items)
+
+    }
+
+    signal addTask(var task)
+
+    onAddTask: {
+        view.model.append(task)
+    }
 
 
 
@@ -120,7 +136,7 @@ ApplicationWindow {
                     view.model.append([{'title': task}])
                 }
 
-                model: ListModel { ListElement {title: "Love"} ListElement {title: "Love"} }
+                model: ListModel { }
                 delegate: Delegate {}
 
             }
@@ -133,4 +149,18 @@ ApplicationWindow {
 
     }
 
+    Connections {
+        target: manager
+
+        onSend_first: {
+            var result = _start
+            addTask(result)
+        }
+
+        onAdd_t: {
+            var result = _add
+            addTask(result)
+        }
+
+    }
 }

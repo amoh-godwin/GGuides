@@ -38,6 +38,6 @@ Dialog {
         placeholderText: "love"
     }
 
-    onAccepted: addTask(text_field.text)
+    onAccepted: manager.add(text_field.text)
 
 }

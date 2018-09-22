@@ -10,7 +10,7 @@ Component {
         height: 52
         leftPadding: 40
         rightPadding: 64
-        text: "love"
+        text: title
 
         background: Rectangle {
             width: parent.width
@@ -63,6 +63,14 @@ Component {
                     height: parent.height
                     color: "dodgerblue"
                 }
+                
+                SwipeDelegate.onClicked: {
+
+                    swipe.close()
+                    manager.set_ongoing(index)
+                    view.model.move(index, 0, 1)
+                }
+                
             }
             Label {
                 text: "Cancel"
