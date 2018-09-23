@@ -52,7 +52,7 @@ Component {
                         text: parent.text
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        color: ctrl.accent
+                        color: accent
                     }
 
                     onClicked: {
@@ -71,7 +71,7 @@ Component {
             text: parent.text
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignLeft
-            color: ctrl.accent
+            color: accent
         }
 
         swipe.right: Row {
@@ -88,7 +88,7 @@ Component {
                 background: Rectangle {
                     width: parent.width
                     height: parent.height
-                    color: "#F7630C"
+                    color: accent
                 }
                 
                 SwipeDelegate.onClicked: {
