@@ -13,6 +13,8 @@ ApplicationWindow {
     flags: Qt.Window | Qt.FramelessWindowHint
     color: "transparent"
 
+    property color accent: "#F7630C"
+
     Component.onCompleted: manager.start()
 
     Component.onDestruction: {
@@ -56,6 +58,7 @@ ApplicationWindow {
         id: usable_content
         width: bg.width
         height: bg.height
+        color: "#f2f2f2"
 
         ColumnLayout {
 
@@ -70,6 +73,7 @@ ApplicationWindow {
                 anchors.top: parent.top
                 Layout.fillWidth: true
                 height: 30
+                color: "#F7630C"
 
                 property int prevX
                 property int prevY
@@ -130,9 +134,11 @@ ApplicationWindow {
                         }
 
                         CustomButton {
+                            //width: 40
                             height: parent.height
                             text: "\uE711"
                             hover_bg: "red"
+                            hover_cl: "white"
 
                             onPressed: {
                                 mainWindow.close()
@@ -160,7 +166,7 @@ ApplicationWindow {
                     view.model.append([{'title': task}])
                 }
 
-                model: ListModel { }
+                model: ListModel {}
                 delegate: Delegate {}
 
             }

@@ -6,15 +6,20 @@ import QtQuick.Layouts 1.3
 Component {
 
     SwipeDelegate {
+        id: ctrl
         width: parent.width
         height: 52
         leftPadding: 40
         rightPadding: 64
+        font.pixelSize: 12
         text: title
+
+        property color ongoing_color: "#e1e1e1"
+        property color accent: "#F7630C"
 
         background: Rectangle {
             width: parent.width
-            color: "#e1e1e1"
+            color: "white"
 
             RowLayout {
                 width: parent.width
@@ -27,7 +32,7 @@ Component {
                     width: 16
                     height: 16
                     radius: 2
-                    color: "dodgerblue"
+                    color: ongoing ? accent : ctrl.ongoing_color
                 }
 
                 Button {
@@ -42,6 +47,14 @@ Component {
                         border.color: Qt.rgba(0, 0, 0, 0.1)
                     }
 
+                    contentItem: Text {
+                        font: parent.font
+                        text: parent.text
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        color: ctrl.accent
+                    }
+
                     onClicked: {
                         manager.finish(index)
                         view.model.remove(index, 1)
@@ -51,6 +64,14 @@ Component {
 
             }
 
+        }
+
+        contentItem: Text {
+            font: parent.font
+            text: parent.text
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignLeft
+            color: ctrl.accent
         }
 
         swipe.right: Row {
@@ -67,7 +88,7 @@ Component {
                 background: Rectangle {
                     width: parent.width
                     height: parent.height
-                    color: "dodgerblue"
+                    color: "#F7630C"
                 }
                 
                 SwipeDelegate.onClicked: {
@@ -75,6 +96,7 @@ Component {
                     swipe.close()
                     manager.set_ongoing(index)
                     view.model.move(index, 0, 1)
+                    view.model.setProperty(index, 'ongoing', true)
                 }
                 
             }

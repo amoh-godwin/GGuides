@@ -42,6 +42,7 @@ class Func(QObject):
 
     def _set_ongoing(self, ind):
 
+        print('\n', ind, '\n')
 
         new_list = []
         for entry in self.fresh_list:
@@ -51,6 +52,7 @@ class Func(QObject):
 
             elif entry['id'] == ind:
                 entry['id'] = 0
+                entry['ongoing'] = True
 
             new_list.append(entry)
         
