@@ -3,7 +3,7 @@ import os
 import threading
 from time import sleep, time
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
-from Data.list import fresh_task
+from Data.list import fresh_task, done_task
 
 class Func(QObject):
 
@@ -11,6 +11,7 @@ class Func(QObject):
     def __init__(self):
         QObject.__init__(self)
         self.fresh_list = fresh_task
+        self.done_list = done_task
         self.high_index = len(self.fresh_list) - 1
  
     send_first = pyqtSignal(list, arguments=['_start'])
@@ -77,8 +78,19 @@ class Func(QObject):
 
 
     def _finish(self, ind):
+        task = self.fresh_list[ind].copy()
+        
+        task.pop('id')
+        task.pop('ongoing')
+        
+        task['completed_date'] = time()
+        
+        self.done_list.append(task)
+
         self._remove(ind)
-        print('\n**************************\n', 'will now add', ind, '\n')
+        
+        print('\n**************************\n', 'will now add', task, '\n')
+
 
     def _refresh_list(self):
         ff = []

@@ -1,1 +1,3 @@
-fresh_task = [{'id': 0, 'title': 'Pray', 'date': 1537617195.6125958, 'ongoing': False}, {'id': 1, 'title': 'And Sign Again', 'date': 1537706460.1526747, 'ongoing': False}, {'id': 2, 'title': 'Again', 'date': 1537705652.6936047, 'ongoing': False}, {'id': 3, 'title': 'Worship', 'date': 1537705630.1418083, 'ongoing': False}]
+fresh_task = [{'id': 0, 'title': 'Pray', 'date': 1537706460.1526747, 'ongoing': False}, {'id': 1, 'title': 'And Again', 'date': 1537707904.7098286, 'ongoing': False}]
+
+done_task = []

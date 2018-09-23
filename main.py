@@ -19,7 +19,8 @@ class App():
 
     def _postprocess(self):
         with open(self.root_folder + '/Data/list.py', 'w') as fresh_file:
-            data = 'fresh_task = ' + str(self.manager.fresh_list) + '\n'
+            data = 'fresh_task = ' + str(self.manager.fresh_list) + '\n\n'
+            data += 'done_task = ' + str(self.manager.done_list) + '\n'
             fresh_file.write(data)
 
 
