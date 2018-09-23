@@ -35,7 +35,7 @@ Dialog {
         id: text_field
         font.pixelSize: 14
         anchors.centerIn: parent
-        placeholderText: "love"
+        placeholderText: "Task name"
     }
 
     onAccepted: manager.add(text_field.text)

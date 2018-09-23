@@ -17,22 +17,11 @@ ApplicationWindow {
 
     Component.onCompleted: manager.start()
 
-    Component.onDestruction: {
-        var cc = view.model.count
-        var items = []
-        for (var i = 0; i < cc; i++) {
-            items.push(view.model.get(i))
-        }
-        console.log(items)
-
-    }
-
     signal addTask(var task)
 
     onAddTask: {
         view.model.append(task)
     }
-
 
 
     background: Rectangle {
@@ -168,6 +157,22 @@ ApplicationWindow {
 
                 model: ListModel {}
                 delegate: Delegate {}
+
+            }
+
+            Rectangle {
+                Layout.fillWidth: true
+                height: 24
+                anchors.centerIn: parent
+                color: "transparent"
+                visible: view.model.count > 0 ? false : true
+
+                Text {
+                    text: "Add Tasks by clicking on the Add Icon('+')"
+                    anchors.centerIn: parent
+                    font.pixelSize: 24
+                    color: "#ccc"
+                }
 
             }
 

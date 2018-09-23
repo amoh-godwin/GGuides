@@ -78,8 +78,8 @@ Component {
             anchors.right: parent.right
 
             Label {
-                text: "Start"
-                width: 64
+                text: ongoing ? "Has started" : "Start"
+                width: 68
                 height: 52
                 color: "white"
                 verticalAlignment: Label.AlignVCenter

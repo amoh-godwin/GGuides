@@ -21,13 +21,13 @@ class Func(QObject):
     def _start(self):
 
 
-        sleep(0.3)
+
         self.send_first.emit(fresh_task)
 
 
     def _add(self, task_title):
 
-        
+
         final = []
         task = {}
         self.high_index += 1
@@ -42,11 +42,10 @@ class Func(QObject):
 
     def _set_ongoing(self, ind):
 
-        print('\n', ind, '\n')
 
         new_list = []
         for entry in self.fresh_list:
-            
+
             if entry['id'] < ind:
                 entry['id'] += 1
 
@@ -55,43 +54,41 @@ class Func(QObject):
                 entry['ongoing'] = True
 
             new_list.append(entry)
-        
+
         self.fresh_list = new_list
         self._refresh_list()
 
 
     def _remove(self, ind):
-        print(ind)
+
+
         new_list = []
         for entry in self.fresh_list:
-            
+
             if entry['id'] > ind:
                 entry['id'] -= 1
-                
+
             elif entry['id'] == ind:
                 entry['id'] = 0
                 continue
 
-            print(entry, '\n**********************************************\n')
             new_list.append(entry)
-        
+
         self.fresh_list = new_list
         self._refresh_list()
 
 
     def _finish(self, ind):
         task = self.fresh_list[ind].copy()
-        
+
         task.pop('id')
         task.pop('ongoing')
-        
+
         task['completed_date'] = time()
-        
+
         self.done_list.append(task)
 
         self._remove(ind)
-        
-        print('\n**************************\n', 'will now add', task, '\n')
 
 
     def _refresh_list(self):
@@ -104,7 +101,7 @@ class Func(QObject):
                     curr_index += 1
             if len(ff) == len(self.fresh_list):
                 break
-        
+
         self.fresh_list = ff
 
 
@@ -136,4 +133,3 @@ class Func(QObject):
     def remove(self, index):
         r_thread = threading.Thread(target = self._remove, args=[index] )
         r_thread.start()
-
