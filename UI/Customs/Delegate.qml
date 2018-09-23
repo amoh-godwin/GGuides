@@ -42,6 +42,11 @@ Component {
                         border.color: Qt.rgba(0, 0, 0, 0.1)
                     }
 
+                    onClicked: {
+                        manager.finish(index)
+                        view.model.remove(index, 1)
+                    }
+
                 }
 
             }

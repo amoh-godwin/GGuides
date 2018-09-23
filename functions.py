@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import threading
-from datetime import timedelta
-from time import sleep, time, gmtime
+from time import sleep, time
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 from Data.list import fresh_task
 
@@ -19,11 +18,15 @@ class Func(QObject):
 
 
     def _start(self):
+
+
         sleep(0.3)
         self.send_first.emit(fresh_task)
 
 
     def _add(self, task_title):
+
+        
         final = []
         task = {}
         self.high_index += 1
@@ -37,21 +40,20 @@ class Func(QObject):
 
 
     def _set_ongoing(self, ind):
-        print(ind)
+
+
         new_list = []
         for entry in self.fresh_list:
-            new_index = 1
+            
             if entry['id'] < ind:
                 entry['id'] += 1
-                new_index += 1
+
             elif entry['id'] == ind:
                 entry['id'] = 0
-            print(entry, '\n\n')
+
             new_list.append(entry)
         
         self.fresh_list = new_list
-        #print(new_list, '\n\n')
-        #print(self.fresh_list, '\n')
         self._refresh_list()
 
 
@@ -59,21 +61,24 @@ class Func(QObject):
         print(ind)
         new_list = []
         for entry in self.fresh_list:
-            new_index = 1
+            
             if entry['id'] > ind:
                 entry['id'] -= 1
-                new_index += 1
+                
             elif entry['id'] == ind:
                 entry['id'] = 0
                 continue
+
             print(entry, '\n**********************************************\n')
             new_list.append(entry)
         
         self.fresh_list = new_list
-        #print(new_list, '\n\n')
-        #print(self.fresh_list, '\n')
         self._refresh_list()
 
+
+    def _finish(self, ind):
+        self._remove(ind)
+        print('\n**************************\n', 'will now add', ind, '\n')
 
     def _refresh_list(self):
         ff = []
@@ -106,8 +111,11 @@ class Func(QObject):
         ongoing_thread.start()
 
 
-    def Finish(self):
-        pass
+    @pyqtSlot(int)
+    def finish(self, index):
+        fin_thread = threading.Thread(target = self._finish, args=[index] )
+        fin_thread.start()
+
 
 
     @pyqtSlot(int)
