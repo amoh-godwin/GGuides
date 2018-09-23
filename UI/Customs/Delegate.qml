@@ -50,6 +50,7 @@ Component {
 
         swipe.right: Row {
             anchors.right: parent.right
+
             Label {
                 text: "Start"
                 width: 64
@@ -72,8 +73,9 @@ Component {
                 }
                 
             }
+
             Label {
-                text: "Cancel"
+                text: "remove"
                 width: 64
                 height: 52
                 color: "white"
@@ -83,6 +85,14 @@ Component {
                 background: Rectangle {
                     color: "red"
                 }
+
+                SwipeDelegate.onClicked: {
+
+                    swipe.close()
+                    manager.remove(index)
+                    view.model.remove(index, 1)
+                }
+
             }
         }
 

@@ -12,7 +12,7 @@ class Func(QObject):
     def __init__(self):
         QObject.__init__(self)
         self.fresh_list = fresh_task
-        self.high_index = len(self.fresh_list)
+        self.high_index = len(self.fresh_list) - 1
  
     send_first = pyqtSignal(list, arguments=['_start'])
     add_t = pyqtSignal(list, arguments=['_add'])
@@ -26,7 +26,8 @@ class Func(QObject):
     def _add(self, task_title):
         final = []
         task = {}
-        task['id'] = self.high_index + 1
+        self.high_index += 1
+        task['id'] = self.high_index
         task['title'] = task_title
         task['date'] = time()
         task['ongoing'] = False
@@ -54,6 +55,26 @@ class Func(QObject):
         self._refresh_list()
 
 
+    def _remove(self, ind):
+        print(ind)
+        new_list = []
+        for entry in self.fresh_list:
+            new_index = 1
+            if entry['id'] > ind:
+                entry['id'] -= 1
+                new_index += 1
+            elif entry['id'] == ind:
+                entry['id'] = 0
+                continue
+            print(entry, '\n**********************************************\n')
+            new_list.append(entry)
+        
+        self.fresh_list = new_list
+        #print(new_list, '\n\n')
+        #print(self.fresh_list, '\n')
+        self._refresh_list()
+
+
     def _refresh_list(self):
         ff = []
         curr_index = 0
@@ -66,6 +87,7 @@ class Func(QObject):
                 break
         
         self.fresh_list = ff
+
 
     @pyqtSlot(str)
     def add(self, title):
@@ -88,6 +110,8 @@ class Func(QObject):
         pass
 
 
-    def remove(self):
-        pass
+    @pyqtSlot(int)
+    def remove(self, index):
+        r_thread = threading.Thread(target = self._remove, args=[index] )
+        r_thread.start()
 
