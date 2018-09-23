@@ -71,6 +71,30 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 height: 30
 
+                property int prevX
+                property int prevY
+
+                MouseArea {
+                    anchors.fill: parent
+
+                    onPressed: {
+                        parent.prevX = mouseX
+                        parent.prevY = mouseY
+                    }
+
+                    onMouseXChanged: {
+                        var change = mouseX - parent.prevX
+                        mainWindow.setX(mainWindow.x + change)
+
+                    }
+
+                    onMouseYChanged: {
+                        var change = mouseY - parent.prevY
+                        mainWindow.setY(mainWindow.y + change)
+
+                    }
+                }
+
                 RowLayout {
                     width: parent.width
                     height: 30
