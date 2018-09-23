@@ -9,7 +9,7 @@ ApplicationWindow {
     width: 512
     height: 640
     visible: true
-    title: "1 - GGuides"
+    title: view.model.count + " - GGuides"
     flags: Qt.Window | Qt.FramelessWindowHint
     color: "transparent"
 
