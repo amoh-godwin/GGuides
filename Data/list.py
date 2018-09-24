@@ -4,7 +4,7 @@
         {
             "date": 1537789028.3424983,
             "id": 0,
-            "ongoing": true,
+            "ongoing": True,
             "title": "jkhjklghj"
         }
     ]
