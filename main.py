@@ -13,7 +13,7 @@ class App():
 
 
         super.__init__
-        self.root_folder = sys.argv[0].replace('main.py', '').replace('\\', '/')
+        self.root_folder = os.path.split(sys.argv[0])[0].replace('\\', '/')
         self.main_qml = ''
         self.manager = ()
         self._preprocesses()

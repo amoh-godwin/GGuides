@@ -21,7 +21,6 @@ class Func(QObject):
     def _start(self):
 
 
-
         self.send_first.emit(fresh_task)
 
 
