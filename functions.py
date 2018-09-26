@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 import os
+import importlib
 import threading
-from time import sleep, time
+from time import time
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
-from Data.list import fresh_task, done_task
+from Data import datastore
 
 class Func(QObject):
 
 
     def __init__(self):
         QObject.__init__(self)
-        self.fresh_list = fresh_task
-        self.done_list = done_task
+        importlib.reload(datastore)
+        self.fresh_list = datastore.fresh_task
+        self.done_list = datastore.done_task
         self.high_index = len(self.fresh_list) - 1
  
     send_first = pyqtSignal(list, arguments=['_start'])
@@ -21,7 +23,7 @@ class Func(QObject):
     def _start(self):
 
 
-        self.send_first.emit(fresh_task)
+        self.send_first.emit(self.fresh_list)
 
 
     def _add(self, task_title):
