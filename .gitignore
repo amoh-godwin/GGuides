@@ -12,7 +12,6 @@
 # Py
 /__pycache__
 /*/__pycache__
-*.spec
 
 # Qt-es
 object_script.*.Release
