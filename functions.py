@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
+import sys
+import os
+import json
 import threading
-from time import time
+from time import time, sleep
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
 
 class Func(QObject):
@@ -8,8 +11,16 @@ class Func(QObject):
 
     def __init__(self):
         QObject.__init__(self)
-        self.data = {'fresh_task':[], 'done_task': []}
-        print('\n', self.data, '\n')
+
+        self.root_folder = os.path.split(sys.argv[0])[0].replace('\\', '/')
+        self.prefs = os.path.join(self.root_folder, '.GGuides').replace('\\', '/')
+        self.datastore_file = self.prefs + '/' + '_datastore.js'
+        
+        with open(self.datastore_file, encoding='utf-8') as fp:
+            raw_d = fp.read()
+            print(raw_d)
+            ds = json.loads(raw_d)
+        self.data = ds
         self.fresh_list = self.data['fresh_task']
         self.done_list = self.data['done_task']
         self.high_index = len(self.fresh_list) - 1
@@ -19,10 +30,9 @@ class Func(QObject):
 
 
     def _start(self):
+        
 
-
-
-        print('\n*******', self.fresh_list, '\n')
+        print('\n*******', self.fresh_list, '********',  '\n')
         self.send_first.emit(self.fresh_list)
 
 

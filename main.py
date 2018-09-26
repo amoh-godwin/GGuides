@@ -16,7 +16,8 @@ class App():
         super.__init__
         self.root_folder = os.path.split(sys.argv[0])[0].replace('\\', '/')
         self.user_folder = os.environ['USERPROFILE'].replace('\\', '/')
-        self.prefs = os.path.join(self.user_folder, '.GGuides').replace('\\', '/')
+        self.prefs = os.path.join(self.root_folder, '.GGuides').replace('\\', '/')
+        self.datastore_file = self.prefs + '/' + '_datastore.js'
         self.main_qml = ''
         self.manager = ()
         self._preprocesses()
@@ -25,14 +26,14 @@ class App():
     def _postprocess(self):
 
 
-        with open(self.prefs, 'w') as fresh_file:
+        with open(self.datastore_file, 'w') as fresh_file:
 
             data = {}
             data['fresh_task'] = self.manager.fresh_list.copy()
             print('\n***********************', data['fresh_task'], '\n')
             data['done_task'] = self.manager.done_list.copy()
             final = json.dumps(data, sort_keys=True, indent=4)
-            fresh_file.write(final)
+            fresh_file.write(final + "\n")
 
 
     def _preprocesses(self):
@@ -40,20 +41,14 @@ class App():
 
         self.main_qml = os.path.join(self.root_folder, 'UI/main.qml')
 
-        datastore_file = os.path.join(self.prefs, '_datastore.js')
-
         if not os.path.exists(self.prefs):
             os.makedirs(self.prefs)
 
-        if not os.path.exists(datastore_file):
+        if not os.path.exists(self.datastore_file):
             print('True')
-            with open(datastore_file, 'w') as file:
+            with open(self.datastore_file, 'w') as file:
                 # initialise
                 file.write('{"fresh_task":[], "done_task":[]}')
-
-        with open(datastore_file, encoding='utf-8') as fp:
-            raw_d = fp.read()
-            ds = json.loads(raw_d)
 
         """
         
@@ -61,10 +56,6 @@ class App():
         
         """
         self.manager = Func()
-
-        # pass the JSON to it
-        print(ds)
-        self.manager.data =  ds
 
         self._start()
 
