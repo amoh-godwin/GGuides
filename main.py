@@ -30,7 +30,6 @@ class App():
 
             data = {}
             data['fresh_task'] = self.manager.fresh_list.copy()
-            print('\n***********************', data['fresh_task'], '\n')
             data['done_task'] = self.manager.done_list.copy()
             final = json.dumps(data, sort_keys=True, indent=4)
             fresh_file.write(final + "\n")
@@ -45,7 +44,6 @@ class App():
             os.makedirs(self.prefs)
 
         if not os.path.exists(self.datastore_file):
-            print('True')
             with open(self.datastore_file, 'w') as file:
                 # initialise
                 file.write('{"fresh_task":[], "done_task":[]}')
@@ -65,7 +63,7 @@ class App():
 
         qApp = QGuiApplication(sys.argv)
         qApp.setWindowIcon(QIcon(self.root_folder + \
-                                 "/assets/image/logo_GGuides.png"))
+                                 "/assets/image/logo_GGuides.ico"))
 
         engine = QQmlApplicationEngine()
         engine.rootContext().setContextProperty('manager', self.manager)
