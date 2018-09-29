@@ -12,6 +12,8 @@
 # Py
 /__pycache__
 /*/__pycache__
+/.GGuides
+/PyQt5
 
 # Qt-es
 object_script.*.Release

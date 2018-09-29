@@ -1,20 +1,28 @@
 # -*- coding: utf-8 -*-
 import sys
-import importlib
+import os
+import json
 import threading
 from time import time
 from PyQt5.QtCore import QObject, pyqtSignal, pyqtSlot
-import Data.datastore
 
 class Func(QObject):
 
 
     def __init__(self):
         QObject.__init__(self)
-        importlib.reload(Data.datastore)
-        print(sys.modules)
-        self.fresh_list = Data.datastore.fresh_task
-        self.done_list = Data.datastore.done_task
+
+
+        self.root_folder = os.path.split(sys.argv[0])[0].replace('\\', '/')
+        self.prefs = os.path.join(self.root_folder, '.GGuides').replace('\\', '/')
+        self.datastore_file = self.prefs + '/' + '_datastore.js'
+        
+        with open(self.datastore_file, encoding='utf-8') as fp:
+            raw_d = fp.read()
+            ds = json.loads(raw_d)
+        self.data = ds
+        self.fresh_list = self.data['fresh_task']
+        self.done_list = self.data['done_task']
         self.high_index = len(self.fresh_list) - 1
  
     send_first = pyqtSignal(list, arguments=['_start'])
@@ -22,7 +30,7 @@ class Func(QObject):
 
 
     def _start(self):
-
+        
 
         self.send_first.emit(self.fresh_list)
 
