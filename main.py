@@ -38,6 +38,11 @@ class App():
     def _preprocesses(self):
 
 
+        # Append to sys.path
+        data_folder = self.root_folder + '/' + 'Data'
+        sys.path.append(data_folder)
+        print(sys.path)
+        
         self.main_qml = os.path.join(self.root_folder, 'UI/main.qml')
 
         if not os.path.exists(self.prefs):

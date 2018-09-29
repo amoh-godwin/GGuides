@@ -12,6 +12,7 @@ class Func(QObject):
     def __init__(self):
         QObject.__init__(self)
 
+
         self.root_folder = os.path.split(sys.argv[0])[0].replace('\\', '/')
         self.prefs = os.path.join(self.root_folder, '.GGuides').replace('\\', '/')
         self.datastore_file = self.prefs + '/' + '_datastore.js'
