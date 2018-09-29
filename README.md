@@ -5,4 +5,6 @@ Abbreviation for God guides.
 This is a to-do list application.
 
 # Screenshots
-![Default]('https://github.com/amoh-godwin/GGuides/blob/master/screenshot_default.PNG')
+![default](https://github.com/amoh-godwin/GGuides/blob/master/screenshot_default.PNG)
+
+![tasks](https://github.com/amoh-godwin/GGuides/blob/master/screenshot_tasks.PNG)
