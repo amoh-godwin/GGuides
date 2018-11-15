@@ -72,7 +72,7 @@ class App():
 
         engine = QQmlApplicationEngine()
         engine.rootContext().setContextProperty('manager', self.manager)
-        engine.load(self.main_qml)
+        engine.load('UI/main.qml')
         engine.quit.connect(qApp.quit)
 
         qApp.aboutToQuit.connect(self._postprocess)
